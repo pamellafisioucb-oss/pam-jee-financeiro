@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="light-content">
+<meta name="theme-color" content="#F4F6FA">
+<title>Pam & Jee</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:       #F4F6FA;
+  --s1:       #FFFFFF;
+  --s2:       #F0F2F8;
+  --s3:       #E4E8F2;
+  --brd:      #DDE2EE;
+  --brd2:     #C8D0E4;
+  --pam:      #9333EA;
+  --pam2:     #7C22CC;
+  --pam-g:    rgba(147,51,234,.09);
+  --jee:      #0284C7;
+  --jee2:     #0369A1;
+  --jee-g:    rgba(2,132,199,.09);
+  --grn:      #16A34A;
+  --grn2:     #15803D;
+  --grn-g:    rgba(22,163,74,.09);
+  --red:      #DC2626;
+  --red2:     #B91C1C;
+  --red-g:    rgba(220,38,38,.08);
+  --amb:      #D97706;
+  --amb2:     #B45309;
+  --amb-g:    rgba(217,119,6,.09);
+  --txt:      #1A2035;
+  --txt2:     #5A6A8A;
+  --txt3:     #9DAABF;
+  --r:        16px;
+  --r2:       12px;
+  --r3:       8px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+-webkit-font-smoothing:antialiased;
+html{height:100%;background:var(--bg)}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--txt);min-height:100dvh;padding-bottom:84px;overflow-x:hidden;-webkit-font-smoothing:antialiased;line-height:1.4}
+
+/* ── HEADER ─────────────────────────────────────────────── */
+.hdr{position:sticky;top:0;z-index:40;background:var(--bg);border-bottom:1px solid var(--brd);padding:14px 18px 10px;box-shadow:0 1px 8px rgba(0,0,0,.06)}
+.hdr-row1{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.logo{font-size:19px;font-weight:800;letter-spacing:-.6px}
+.logo-pam{color:var(--pam)}.logo-amp{color:var(--txt3);margin:0 3px}.logo-jee{color:var(--jee)}
+.sync-chip{display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:20px;border:1px solid var(--brd);background:var(--s2);font-size:12px;font-weight:600;color:var(--txt2);cursor:pointer;transition:.15s}
+.sync-chip:active{background:var(--s3)}
+.sdot{width:6px;height:6px;border-radius:50%;background:var(--txt3);flex-shrink:0}
+.sdot.on{background:var(--grn);animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.hdr-row2{display:flex;align-items:center;justify-content:space-between}
+.mnav{display:flex;align-items:center;gap:8px}
+.marrow{width:30px;height:30px;border-radius:var(--r3);border:1px solid var(--brd);background:var(--s2);color:var(--txt2);font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.12s}
+.marrow:active{background:var(--brd2)}
+.mlbl{font-size:13px;font-weight:700;font-family:'Fira Code';color:var(--txt);min-width:76px;text-align:center}
+.meses-strip{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.meses-strip::-webkit-scrollbar{display:none}
+.mes-dot{flex-shrink:0;width:26px;height:5px;border-radius:3px;background:var(--brd);transition:.2s}
+.mes-dot.has{background:var(--jee2)}
+.mes-dot.cur{background:var(--jee)}
+
+/* ── BOTTOM NAV ─────────────────────────────────────────── */
+.bnav{position:fixed;bottom:0;left:0;right:0;height:80px;background:var(--s1);border-top:1px solid var(--brd);display:flex;z-index:40;padding-bottom:env(safe-area-inset-bottom,0);box-shadow:0 -2px 12px rgba(0,0,0,.06)}
+.nb{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;background:none;border:none;cursor:pointer;color:var(--txt3);font-family:'Plus Jakarta Sans';transition:color .15s;padding:6px 2px}
+.nb.on{color:var(--grn)}
+.ni{font-size:22px;line-height:1}
+.nl{font-size:11px;font-weight:600;letter-spacing:.2px}
+.fab{position:fixed;bottom:88px;right:18px;z-index:50;width:54px;height:54px;border-radius:15px;background:linear-gradient(135deg,var(--pam2),var(--jee2));border:none;color:#fff;font-size:24px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.22);cursor:pointer;transition:transform .12s}
+.fab:active{transform:scale(.9)}
+
+/* ── PAGES ──────────────────────────────────────────────── */
+.pg{display:none;padding:16px 18px;animation:fadein .2s ease}
+.pg.on{display:block}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* ── SECTION LABEL ──────────────────────────────────────── */
+.sec{font-size:11px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:1.8px;margin:20px 0 12px;display:flex;align-items:center;gap:8px}
+.sec::after{content:'';flex:1;height:1px;background:var(--brd)}
+
+/* ── KPI GRID ────────────────────────────────────────────── */
+.kgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.kcard{border-radius:var(--r2);padding:14px;border:1px solid var(--brd);position:relative;overflow:hidden;background:var(--s1);box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.kcard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.kcard.g::before{background:linear-gradient(90deg,var(--grn),var(--jee))}
+.kcard.r::before{background:linear-gradient(90deg,var(--red),var(--pam))}
+.kcard.p::before{background:var(--pam)}
+.kcard.j::before{background:var(--jee)}
+.kcard.a::before{background:var(--amb)}
+.kk{font-size:10px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:6px}
+.kv{font-size:17px;font-weight:700;font-family:'Fira Code';letter-spacing:-.5px;line-height:1}
+.kv.g{color:var(--grn)}.kv.r{color:var(--red)}.kv.p{color:var(--pam)}.kv.j{color:var(--jee)}.kv.a{color:var(--amb)}
+.ks{font-size:11px;color:var(--txt3);margin-top:4px;font-weight:500}
+
+/* ── SALDO CARD ─────────────────────────────────────────── */
+.saldo-card{border-radius:var(--r);border:1px solid var(--brd);padding:16px;margin-bottom:10px;background:var(--s1);box-shadow:0 1px 6px rgba(0,0,0,.05)}
+.saldo-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.saldo-lbl{font-size:13px;font-weight:600;color:var(--txt2)}
+.saldo-val{font-family:'Fira Code';font-size:22px;font-weight:700}
+
+/* ── PROGRESS ────────────────────────────────────────────── */
+.pb-wrap{margin-bottom:8px}
+.pb-hdr{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px}
+.pb-lbl{font-size:13px;font-weight:500}
+.pb-pct{font-size:11px;font-family:'Fira Code';color:var(--txt2)}
+.pb{height:5px;background:var(--brd);border-radius:10px;overflow:hidden}
+.pbf{height:100%;border-radius:10px;transition:width .5s cubic-bezier(.4,0,.2,1)}
+.ok{background:var(--grn)}.warn{background:var(--amb)}.over{background:var(--red)}
+
+/* ── LIST ITEM ───────────────────────────────────────────── */
+.li{display:flex;align-items:center;gap:11px;padding:12px 13px;border-radius:var(--r2);border:1px solid var(--brd);margin-bottom:7px;background:var(--s1);position:relative;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+.li-bar{position:absolute;left:0;top:0;bottom:0;width:3px}
+.li-ico{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.li-body{flex:1;min-width:0}
+.li-title{font-size:15px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.li-sub{font-size:12px;color:var(--txt2);margin-top:3px;display:flex;align-items:center;gap:5px;flex-wrap:wrap;font-weight:400}
+.li-right{text-align:right;flex-shrink:0}
+.li-val{font-family:'Fira Code';font-size:14px;font-weight:600}
+.li-info{font-size:10px;color:var(--txt3);margin-top:2px;font-family:'Fira Code'}
+
+/* ── TAGS ────────────────────────────────────────────────── */
+.tag{display:inline-block;padding:3px 8px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:.4px;text-transform:uppercase}
+.tp{background:var(--pam-g);color:var(--pam);border:1px solid var(--pam2)}
+.tj{background:var(--jee-g);color:var(--jee);border:1px solid var(--jee2)}
+.tc{background:var(--grn-g);color:var(--grn);border:1px solid var(--grn2)}
+.tg{background:var(--grn-g);color:var(--grn)}
+.ta{background:var(--amb-g);color:var(--amb)}
+.tr{background:var(--red-g);color:var(--red)}
+
+/* ── MODAL ───────────────────────────────────────────────── */
+.ov{position:fixed;inset:0;z-index:100;background:rgba(26,32,53,.55);backdrop-filter:blur(10px);display:none;align-items:flex-end}
+.ov.on{display:flex}
+.modal{width:100%;max-height:95dvh;background:#fff;border-radius:22px 22px 0 0;overflow-y:auto;overscroll-behavior:contain;padding-bottom:32px;box-shadow:0 -4px 30px rgba(0,0,0,.12)}
+.modal-in{animation:slideup .28s cubic-bezier(.32,.72,0,1)}
+@keyframes slideup{from{transform:translateY(100%)}to{transform:none}}
+.drag{width:36px;height:4px;background:var(--brd2);border-radius:4px;margin:13px auto 0}
+.mtitle{font-size:18px;font-weight:800;text-align:center;padding:14px 20px 0;letter-spacing:-.3px}
+.mtabs{display:flex;margin:12px 18px 0;border-radius:var(--r2);overflow:hidden;border:1px solid var(--brd)}
+.mtab{flex:1;padding:10px 6px;background:none;border:none;color:var(--txt2);font-family:'Plus Jakarta Sans';font-size:12px;font-weight:600;cursor:pointer;transition:.15s}
+.mtab.on{background:var(--s3);color:var(--txt)}
+.mbody{padding:0 18px}
+
+/* ── FORM ────────────────────────────────────────────────── */
+.fg{margin-top:14px}
+.fl{font-size:11px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:8px}
+.fi{width:100%;padding:13px 15px;background:var(--s2);border:1.5px solid var(--brd);border-radius:var(--r2);color:var(--txt);font-family:'Plus Jakarta Sans';font-size:16px;outline:none;transition:border-color .2s;-webkit-appearance:none;-webkit-text-fill-color:var(--txt)}
+.fi:focus{border-color:var(--jee2)}
+.fi::placeholder{color:var(--txt3)}
+.fi-money{padding-left:44px;font-size:24px;font-weight:600;font-family:'Fira Code';letter-spacing:-.5px}
+.fw{position:relative}
+.fpfx{position:absolute;left:15px;top:50%;transform:translateY(-50%);color:var(--txt2);font-size:14px;font-weight:600;pointer-events:none}
+
+/* ── PILLS ───────────────────────────────────────────────── */
+.pills{display:flex;flex-wrap:wrap;gap:7px}
+.pill{padding:8px 13px;border-radius:20px;border:1.5px solid var(--brd);background:transparent;color:var(--txt2);font-family:'Plus Jakarta Sans';font-size:12px;font-weight:500;cursor:pointer;transition:all .12s;white-space:nowrap}
+.pill:active{transform:scale(.95)}
+.pill.sp{background:var(--pam-g);border-color:var(--pam2);color:var(--pam);font-weight:700}
+.pill.sj{background:var(--jee-g);border-color:var(--jee2);color:var(--jee);font-weight:700}
+.pill.sc{background:var(--grn-g);border-color:var(--grn2);color:var(--grn);font-weight:700}
+.pill.sx{background:var(--s3);border-color:var(--brd2);color:var(--txt);font-weight:700}
+
+/* ── PARCELAS COUNTER ────────────────────────────────────── */
+.pcrow{display:flex;align-items:center;gap:9px}
+.pcbtn{width:44px;height:44px;border-radius:var(--r2);background:var(--s2);border:1.5px solid var(--brd);color:var(--txt);font-size:20px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:.12s}
+.pcbtn:active{background:var(--brd2)}
+.pcinp{flex:1;text-align:center;font-size:20px;font-weight:700;font-family:'Fira Code'}
+.pchint{text-align:center;font-family:'Fira Code';font-size:13px;color:var(--grn);font-weight:500;margin-top:6px;min-height:16px}
+
+/* ── FATURA PREVIEW ──────────────────────────────────────── */
+.fatprev{background:var(--s2);border:1px solid var(--brd);border-radius:var(--r2);padding:11px 14px;display:flex;justify-content:space-between;align-items:center;margin-top:12px}
+.fpl{font-size:11px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:.9px}
+.fpv{font-family:'Fira Code';font-size:13px;color:var(--amb);font-weight:600}
+
+/* ── BUTTONS ─────────────────────────────────────────────── */
+.btn{width:100%;padding:15px;border:none;border-radius:var(--r2);font-family:'Plus Jakarta Sans';font-size:15px;font-weight:700;cursor:pointer;margin-top:16px;transition:.12s}
+.btn:active{opacity:.85;transform:scale(.99)}
+.btn-p{background:linear-gradient(135deg,var(--pam2),var(--jee2));color:#fff}
+.btn-g{background:var(--s2);border:1.5px solid var(--brd);color:var(--txt2)}
+
+/* ── TOAST ───────────────────────────────────────────────── */
+.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-80px);background:var(--grn2);color:#fff;padding:11px 20px;border-radius:20px;font-weight:700;font-size:13px;z-index:200;transition:transform .3s cubic-bezier(.32,.72,0,1);white-space:nowrap;box-shadow:0 6px 20px rgba(0,0,0,.4)}
+.toast.on{transform:translateX(-50%) translateY(0)}
+
+/* ── SYNC MODAL ──────────────────────────────────────────── */
+.sinfo{background:var(--s2);border:1px solid var(--brd);border-radius:var(--r2);padding:14px;margin-top:12px}
+.sstep{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--brd)}
+.sstep:last-child{border:none}
+.snum{width:20px;height:20px;border-radius:50%;background:var(--jee2);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.stxt{font-size:13px;color:var(--txt2);line-height:1.6}
+.stxt strong{color:var(--txt)}
+.codebox{background:var(--s2);border:1.5px solid var(--brd2);border-radius:var(--r2);padding:16px;margin-top:10px;font-family:'Fira Code';font-size:18px;font-weight:600;color:var(--amb2);text-align:center;letter-spacing:3px;cursor:pointer;transition:.15s}
+.codebox:active{background:var(--brd)}
+.code-hint{font-size:10px;color:var(--txt3);text-align:center;margin-top:5px}
+
+/* ── MESES ANUAIS ────────────────────────────────────────── */
+.mlist{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
+.mitem{border-radius:var(--r2);padding:10px 8px;border:1px solid var(--brd);text-align:center;cursor:pointer;background:var(--s1);transition:.15s;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.mitem:active{background:var(--s2)}
+.mitem.cur{border-color:var(--jee);background:var(--jee-g)}
+.mitem.has{border-color:var(--brd2)}
+.mitem-nome{font-size:12px;font-weight:600;color:var(--txt2)}
+.mitem.cur .mitem-nome{color:var(--jee)}
+.mitem-val{font-size:12px;font-family:'Fira Code';color:var(--txt3);margin-top:2px}
+.mitem.has .mitem-val{color:var(--txt)}
+
+/* ── EMPTY ───────────────────────────────────────────────── */
+.empty{text-align:center;padding:36px 20px;color:var(--txt3)}
+.ei{font-size:32px;margin-bottom:8px}
+.et{font-size:13px;line-height:1.6}
+
+/* ── DIVIDER ─────────────────────────────────────────────── */
+.div{height:1px;background:var(--brd);margin:12px 0}
+
+/* ── NPILLS (filtro) ─────────────────────────────────────── */
+.npills{display:flex;gap:6px;margin-bottom:12px;overflow-x:auto;scrollbar-width:none}
+.npills::-webkit-scrollbar{display:none}
+.npill{flex-shrink:0;padding:6px 13px;border-radius:20px;border:1.5px solid var(--brd);background:transparent;color:var(--txt2);font-family:'Plus Jakarta Sans';font-size:12px;font-weight:500;cursor:pointer;transition:.12s}
+.npill.on{background:var(--s3);border-color:var(--brd2);color:var(--txt);font-weight:600}
+
+/* ── RESUMO ANUAL CARD ───────────────────────────────────── */
+.anual-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--brd)}
+.anual-row:last-child{border:none}
+.anual-lbl{font-size:13px;color:var(--txt2);font-weight:400}
+.anual-val{font-family:'Fira Code';font-size:13px;font-weight:600}
+</style>
+</head>
+<body>
+
+<div class="toast" id="toast"></div>
+
+<!-- HEADER -->
+<header class="hdr">
+  <div class="hdr-row1">
+    <div class="logo">
+      <span class="logo-pam">Pamella</span>
+      <span class="logo-amp">&</span>
+      <span class="logo-jee">Jeeser</span>
+    </div>
+    <div class="sync-chip" onclick="openSync()" id="syncChip">
+      <div class="sdot" id="sdot"></div>
+      <span id="syncLbl">Sincronizar</span>
+    </div>
+  </div>
+  <div class="hdr-row2">
+    <div class="mnav">
+      <button class="marrow" onclick="navMes(-1)">‹</button>
+      <div class="mlbl" id="mlbl">Mai/2026</div>
+      <button class="marrow" onclick="navMes(1)">›</button>
+    </div>
+    <div style="font-size:10px;color:var(--txt3)" id="syncTime"></div>
+  </div>
+</header>
+
+<!-- PÁGINAS -->
+
+<!-- HOME -->
+<div class="pg on" id="pg-home">
+  <div class="kgrid">
+    <div class="kcard g"><div class="kk">Receitas</div><div class="kv g" id="k-rec">R$ 0</div><div class="ks" id="k-rec-s">mês atual</div></div>
+    <div class="kcard r"><div class="kk">Cartão BB</div><div class="kv r" id="k-bb">R$ 0</div><div class="ks">Fecha dia 3</div></div>
+    <div class="kcard p"><div class="kk">Pamella</div><div class="kv p" id="k-pam">R$ 0</div><div class="ks" id="k-pam-s">0 gastos</div></div>
+    <div class="kcard j"><div class="kk">Jeeser</div><div class="kv j" id="k-jee">R$ 0</div><div class="ks" id="k-jee-s">0 gastos</div></div>
+  </div>
+
+  <div class="saldo-card">
+    <div class="saldo-row">
+      <span class="saldo-lbl">Balanço do mês</span>
+      <span class="saldo-val" id="saldo-v" style="color:var(--grn)">R$ 0,00</span>
+    </div>
+    <div class="pb-wrap" style="margin:0">
+      <div class="pb-hdr">
+        <span class="pb-lbl">BB vs Meta <span style="color:var(--txt3);font-family:'Fira Code';font-size:11px" id="meta-lbl">(R$ 13.800)</span></span>
+        <span class="pb-pct" id="meta-pct">0%</span>
+      </div>
+      <div class="pb"><div class="pbf ok" id="meta-bar" style="width:0%"></div></div>
+      <div style="font-size:10px;color:var(--txt3);margin-top:4px" id="meta-msg"></div>
+    </div>
+  </div>
+
+  <div class="sec">Gastos por categoria</div>
+  <div id="cat-bars"><div class="empty"><div class="ei">🏷️</div><div class="et">Nenhum gasto lançado ainda.</div></div></div>
+
+  <div class="sec">Despesas fixas do mês</div>
+  <div id="fixas-home"><div class="empty"><div class="ei">🏠</div><div class="et">Nenhuma despesa fixa lançada.</div></div></div>
+
+  <div class="sec">Últimos lançamentos</div>
+  <div id="recent"><div class="empty"><div class="ei">📝</div><div class="et">Toque em + para lançar.</div></div></div>
+</div>
+
+<!-- GASTOS -->
+<div class="pg" id="pg-gastos">
+  <div class="npills">
+    <button class="npill on" onclick="fG('todos',this)">Todos</button>
+    <button class="npill" onclick="fG('pam',this)">🟣 Pamella</button>
+    <button class="npill" onclick="fG('jee',this)">🔵 Jeeser</button>
+    <button class="npill" onclick="fG('casal',this)">🤝 Casal</button>
+    <button class="npill" onclick="fG('parc',this)">📦 Parcelados</button>
+  </div>
+  <div id="lista-g"><div class="empty"><div class="ei">💳</div><div class="et">Nenhum gasto neste mês.</div></div></div>
+</div>
+
+<!-- RECEITAS -->
+<div class="pg" id="pg-receitas">
+  <div class="sec">Receitas do mês</div>
+  <div id="lista-r"><div class="empty"><div class="ei">💰</div><div class="et">Nenhuma receita lançada.</div></div></div>
+
+  <div class="sec">Despesas fixas</div>
+  <div id="lista-f"><div class="empty"><div class="ei">🏠</div><div class="et">Nenhuma despesa fixa.</div></div></div>
+
+  <div class="saldo-card" style="margin-top:8px">
+    <div class="anual-row"><span class="anual-lbl">Total Receitas</span><span class="anual-val" style="color:var(--grn)" id="tr-v">R$ 0,00</span></div>
+    <div class="anual-row"><span class="anual-lbl">Total Fixas</span><span class="anual-val" style="color:var(--amb)" id="tf-v">R$ 0,00</span></div>
+    <div class="div"></div>
+    <div class="anual-row"><span class="anual-lbl" style="font-weight:600;color:var(--txt)">Disponível p/ Cartão</span><span class="anual-val" style="font-size:15px" id="disp-v">R$ 0,00</span></div>
+  </div>
+</div>
+
+<!-- ANUAL -->
+<div class="pg" id="pg-anual">
+  <div class="sec">Visão Mai → Dez 2026</div>
+  <div class="mlist" id="mlist"></div>
+
+  <div class="sec">Totais acumulados (2026)</div>
+  <div class="saldo-card">
+    <div class="anual-row"><span class="anual-lbl">Total Receitas</span><span class="anual-val" style="color:var(--grn)" id="an-rec">R$ 0,00</span></div>
+    <div class="anual-row"><span class="anual-lbl">Total Gastos BB</span><span class="anual-val" style="color:var(--red)" id="an-bb">R$ 0,00</span></div>
+    <div class="anual-row"><span class="anual-lbl">Total Fixas</span><span class="anual-val" style="color:var(--amb)" id="an-fix">R$ 0,00</span></div>
+    <div class="div"></div>
+    <div class="anual-row"><span class="anual-lbl" style="font-weight:700;color:var(--txt)">Balanço Anual</span><span class="anual-val" style="font-size:16px" id="an-bal">R$ 0,00</span></div>
+  </div>
+
+  <div class="sec">Parcelas futuras (BB)</div>
+  <div id="fut-list"><div class="empty"><div class="ei">📦</div><div class="et">Nenhum parcelamento lançado.</div></div></div>
+</div>
+
+<!-- ═══ MODAL LANÇAMENTO ═══ -->
+<div class="ov" id="ov-l" onclick="closeOv('ov-l',event)">
+  <div class="modal modal-in">
+    <div class="drag"></div>
+    <div class="mtitle" id="mtitle">+ Lançamento</div>
+    <div class="mtabs">
+      <button class="mtab on"  onclick="setTab('gasto',this)">💳 Gasto</button>
+      <button class="mtab"     onclick="setTab('receita',this)">💰 Receita</button>
+      <button class="mtab"     onclick="setTab('fixa',this)">🏠 Fixa</button>
+    </div>
+    <div class="mbody">
+
+      <!-- QUEM -->
+      <div class="fg" id="fg-quem">
+        <label class="fl">👤 Quem?</label>
+        <div class="pills" id="pg-quem">
+          <button class="pill" onclick="sp('quem','Pamella',this,'sp')">🟣 Pamella</button>
+          <button class="pill" onclick="sp('quem','Jeeser',this,'sj')">🔵 Jeeser</button>
+          <button class="pill" onclick="sp('quem','Casal',this,'sc')">🤝 Casal</button>
+        </div>
+      </div>
+
+      <!-- DESC -->
+      <div class="fg">
+        <label class="fl">📝 Descrição</label>
+        <input class="fi" id="m-desc" placeholder="Ex: Atacadão, Smartfit, Salário UFMS…" autocomplete="off">
+      </div>
+
+      <!-- VALOR -->
+      <div class="fg">
+        <label class="fl">💰 Valor (R$)</label>
+        <div class="fw"><span class="fpfx">R$</span><input class="fi fi-money" id="m-val" type="number" inputmode="decimal" placeholder="0,00" step="0.01" min="0"></div>
+      </div>
+
+      <!-- CAT (gasto) -->
+      <div class="fg" id="fg-cat">
+        <label class="fl">🏷️ Categoria</label>
+        <div class="pills" id="pg-cat">
+          <button class="pill" onclick="sp('cat','Mercado',this,'sx')">🛒 Mercado</button>
+          <button class="pill" onclick="sp('cat','Restaurante/Lazer',this,'sx')">🍽️ Rest./Lazer</button>
+          <button class="pill" onclick="sp('cat','Casa',this,'sx')">🏠 Casa</button>
+          <button class="pill" onclick="sp('cat','Saúde/Estética',this,'sx')">💊 Saúde</button>
+          <button class="pill" onclick="sp('cat','Carro/Transporte',this,'sx')">🚗 Carro</button>
+          <button class="pill" onclick="sp('cat','Serviços',this,'sx')">⚙️ Serviços</button>
+          <button class="pill" onclick="sp('cat','Viagem',this,'sx')">✈️ Viagem</button>
+          <button class="pill" onclick="sp('cat','Outros',this,'sx')">📦 Outros</button>
+        </div>
+      </div>
+
+      <!-- FONTE (receita) -->
+      <div class="fg" id="fg-fonte" style="display:none">
+        <label class="fl">📌 Fonte</label>
+        <div class="pills" id="pg-fonte">
+          <button class="pill" onclick="sp('fonte','SES',this,'sx')">SES</button>
+          <button class="pill" onclick="sp('fonte','UFMS',this,'sx')">UFMS</button>
+          <button class="pill" onclick="sp('fonte','Mesp',this,'sx')">Mesp</button>
+          <button class="pill" onclick="sp('fonte','TPD',this,'sx')">TPD</button>
+          <button class="pill" onclick="sp('fonte','Freelance',this,'sx')">Freelance</button>
+          <button class="pill" onclick="sp('fonte','Outros',this,'sx')">Outros</button>
+        </div>
+      </div>
+
+      <!-- TIPO FIXA -->
+      <div class="fg" id="fg-tfixa" style="display:none">
+        <label class="fl">🏠 Qual despesa?</label>
+        <div class="pills" id="pg-tfixa">
+          <button class="pill" onclick="sp('tfixa','Prestação Apt.',this,'sx')">Prestação Apt.</button>
+          <button class="pill" onclick="sp('tfixa','Condomínio',this,'sx')">Condomínio</button>
+          <button class="pill" onclick="sp('tfixa','Luz',this,'sx')">Luz</button>
+          <button class="pill" onclick="sp('tfixa','Água',this,'sx')">Água</button>
+          <button class="pill" onclick="sp('tfixa','Gás',this,'sx')">Gás</button>
+          <button class="pill" onclick="sp('tfixa','Tel./Internet',this,'sx')">Tel./Internet</button>
+          <button class="pill" onclick="sp('tfixa','Escola Laura',this,'sx')">Escola Laura</button>
+          <button class="pill" onclick="sp('tfixa','Escola Liz',this,'sx')">Escola Liz</button>
+          <button class="pill" onclick="sp('tfixa','Prev BB',this,'sx')">Prev BB</button>
+          <button class="pill" onclick="sp('tfixa','Empréstimo BRB',this,'sx')">Emp. BRB</button>
+          <button class="pill" onclick="sp('tfixa','Diarista',this,'sx')">Diarista</button>
+          <button class="pill" onclick="sp('tfixa','Outra',this,'sx')">Outra</button>
+        </div>
+      </div>
+
+      <!-- FORMA PAGTO (gasto) -->
+      <div class="fg" id="fg-tipo">
+        <label class="fl">💳 Forma de pagamento</label>
+        <div class="pills" id="pg-tipo">
+          <button class="pill" onclick="sTipo('avista',this)">BB — À Vista</button>
+          <button class="pill" onclick="sTipo('parc',this)">BB — Parcelado</button>
+          <button class="pill" onclick="sTipo('deb',this)">Débito / PIX</button>
+          <button class="pill" onclick="sTipo('din',this)">Dinheiro</button>
+        </div>
+      </div>
+
+      <!-- PARCELAS -->
+      <div class="fg" id="fg-parc" style="display:none">
+        <label class="fl">🔢 Número de parcelas</label>
+        <div class="pcrow">
+          <button class="pcbtn" onclick="chgP(-1)">−</button>
+          <input class="fi pcinp" id="m-parc" type="number" value="2" min="2" max="48" readonly>
+          <button class="pcbtn" onclick="chgP(1)">+</button>
+        </div>
+        <div class="pchint" id="pchint"></div>
+      </div>
+
+      <!-- DATA -->
+      <div class="fg">
+        <label class="fl">📅 Data</label>
+        <input class="fi" id="m-data" type="date">
+      </div>
+
+      <!-- OBS -->
+      <div class="fg">
+        <label class="fl">💬 Obs. (opcional)</label>
+        <input class="fi" id="m-obs" placeholder="Anotação rápida…" autocomplete="off">
+      </div>
+
+      <!-- FATURA PREVIEW -->
+      <div class="fatprev" id="fat-prev" style="display:none">
+        <div><div class="fpl">⚡ Fatura calculada (BB)</div><div style="font-size:10px;color:var(--txt3);margin-top:1px">Fechamento dia 3</div></div>
+        <div class="fpv" id="fat-pv">—</div>
+      </div>
+
+      <button class="btn btn-p" onclick="salvar()">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MODAL SYNC ═══ -->
+<div class="ov" id="ov-s" onclick="closeOv('ov-s',event)">
+  <div class="modal modal-in">
+    <div class="drag"></div>
+    <div class="mtitle">🔄 Sincronização</div>
+    <div class="mbody">
+      <p style="font-size:13px;color:var(--txt2);margin-top:14px;line-height:1.6">Use o mesmo <strong style="color:var(--txt)">Código de Sala</strong> nos dois celulares para compartilhar os dados em tempo real.</p>
+
+      <div class="sinfo">
+        <div class="sstep"><div class="snum">1</div><div class="stxt"><strong>Um dos dois</strong> gera o código abaixo e manda pelo WhatsApp.</div></div>
+        <div class="sstep"><div class="snum">2</div><div class="stxt">O outro abre o app, vai em <strong>Sincronizar</strong> e digita o mesmo código.</div></div>
+        <div class="sstep"><div class="snum">3</div><div class="stxt">Pronto — qualquer lançamento aparece nos dois aparelhos automaticamente.</div></div>
+      </div>
+
+      <div class="fg">
+        <label class="fl">🔑 Seu código de sala</label>
+        <div class="codebox" id="roomCode" onclick="copyCode()">—</div>
+        <div class="code-hint">Toque para copiar e enviar</div>
+      </div>
+
+      <div class="fg">
+        <label class="fl">📲 Ou entre na sala de outra pessoa</label>
+        <div style="display:flex;gap:8px">
+          <input class="fi" id="code-in" placeholder="PJ-XXXX" style="flex:1;font-family:'Fira Code';letter-spacing:2px;text-transform:uppercase" maxlength="7">
+          <button class="btn btn-g" style="width:auto;padding:13px 16px;margin:0" onclick="joinRoom()">Entrar</button>
+        </div>
+      </div>
+
+      <div id="sync-st" style="font-size:12px;color:var(--txt2);text-align:center;margin-top:10px;min-height:18px"></div>
+      <button class="btn btn-p" onclick="syncNow()">⚡ Sincronizar agora</button>
+      <button class="btn btn-g" onclick="closeOv('ov-s')" style="margin-top:8px">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<!-- FAB -->
+<button class="fab" onclick="openLanc()">+</button>
+
+<!-- BOTTOM NAV -->
+<nav class="bnav">
+  <button class="nb on" onclick="goPage('home',this)"><span class="ni">🏠</span><span class="nl">Início</span></button>
+  <button class="nb" onclick="goPage('gastos',this)"><span class="ni">💳</span><span class="nl">Gastos</span></button>
+  <button class="nb" onclick="goPage('receitas',this)"><span class="ni">💰</span><span class="nl">Receitas</span></button>
+  <button class="nb" onclick="goPage('anual',this)"><span class="ni">📊</span><span class="nl">Anual</span></button>
+</nav>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+// CONSTANTES
+// ═══════════════════════════════════════════════════════════
+const MESES   = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+const META_BB = 13800;
+const MESES_CTRL = [4,5,6,7,8,9,10,11]; // Mai=4 … Dez=11 (índice 0-based)
+
+const CAT_ICO = {
+  'Mercado':'🛒','Restaurante/Lazer':'🍽️','Casa':'🏠',
+  'Saúde/Estética':'💊','Carro/Transporte':'🚗',
+  'Serviços':'⚙️','Viagem':'✈️','Outros':'📦'
+};
+const CAT_BG = {
+  'Mercado':'rgba(74,222,128,.1)','Restaurante/Lazer':'rgba(251,113,133,.1)',
+  'Casa':'rgba(56,189,248,.1)','Saúde/Estética':'rgba(232,121,249,.1)',
+  'Carro/Transporte':'rgba(252,211,77,.1)','Serviços':'rgba(148,163,184,.1)',
+  'Viagem':'rgba(74,222,128,.08)','Outros':'rgba(58,90,122,.2)'
+};
+const CAT_META = {
+  'Mercado':2500,'Restaurante/Lazer':1200,'Casa':500,
+  'Saúde/Estética':700,'Carro/Transporte':600,
+  'Serviços':200,'Viagem':2000,'Outros':300
+};
+
+// ═══════════════════════════════════════════════════════════
+// STATE — zerado
+// ═══════════════════════════════════════════════════════════
+let DATA = { gastos:[], receitas:[], fixas:[] };
+let mesIdx = 4; // Maio (0-based)
+let mesAno = 2026;
+let curPage = 'home';
+let gFilter = 'todos';
+let mTab    = 'gasto';
+let sel     = {};
+let room    = localStorage.getItem('pj2_room') || '';
+let syncTs  = parseInt(localStorage.getItem('pj2_ts') || '0');
+let syncTimer = null;
+
+// ═══════════════════════════════════════════════════════════
+// PERSIST
+// ═══════════════════════════════════════════════════════════
+function loadLocal() {
+  try {
+    const s = localStorage.getItem('pj2_data');
+    if (s) DATA = JSON.parse(s);
+  } catch(e) {}
+}
+function saveLocal() {
+  localStorage.setItem('pj2_data', JSON.stringify(DATA));
+}
+
+// ═══════════════════════════════════════════════════════════
+// SYNC (artifact storage compartilhado)
+// ═══════════════════════════════════════════════════════════
+const hasStore = typeof window.storage !== 'undefined';
+
+async function stGet(key) {
+  if (hasStore) {
+    try { const r = await window.storage.get(key, true); return r ? r.value : null; }
+    catch(e) { return null; }
+  }
+  return localStorage.getItem('rem_'+key);
+}
+async function stSet(key, val) {
+  if (hasStore) {
+    try { await window.storage.set(key, val, true); } catch(e) {}
+  } else {
+    localStorage.setItem('rem_'+key, val);
+  }
+}
+
+function rKey() { return room ? 'pj2_sala_' + room : null; }
+
+async function syncNow() {
+  if (!room) { toast('⚠️ Configure um código de sala'); return; }
+  setSyncSt('⏳ Sincronizando…');
+  try {
+    const remote = await stGet(rKey());
+    if (remote) {
+      const rd = JSON.parse(remote);
+      const merge = (a, b) => {
+        const m = {};
+        [...(a||[]), ...(b||[])].forEach(i => {
+          if (!m[i.id] || (i.ts||0) > (m[i.id].ts||0)) m[i.id] = i;
+        });
+        return Object.values(m);
+      };
+      DATA.gastos   = merge(DATA.gastos,   rd.gastos);
+      DATA.receitas = merge(DATA.receitas, rd.receitas);
+      DATA.fixas    = merge(DATA.fixas,    rd.fixas);
+    }
+    await stSet(rKey(), JSON.stringify({...DATA, ts: Date.now()}));
+    saveLocal();
+    syncTs = Date.now();
+    localStorage.setItem('pj2_ts', String(syncTs));
+    setSyncSt('✅ ' + new Date(syncTs).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}));
+    updSyncUI(true);
+    renderAll();
+    toast('✅ Sincronizado!');
+  } catch(e) {
+    setSyncSt('❌ Falha — tente novamente');
+    updSyncUI(false);
+  }
+}
+
+function setSyncSt(t) { const e=document.getElementById('sync-st'); if(e) e.textContent=t; }
+
+function updSyncUI(ok) {
+  document.getElementById('sdot').className = 'sdot' + (ok?' on':'');
+  document.getElementById('syncLbl').textContent = ok ? 'Conectado' : 'Sincronizar';
+  if (syncTs) document.getElementById('syncTime').textContent =
+    'Sync ' + new Date(syncTs).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+}
+
+function startAuto() {
+  if (syncTimer) clearInterval(syncTimer);
+  if (room) syncTimer = setInterval(syncNow, 30000);
+}
+
+function genRoom() {
+  const c='ABCDEFGHJKLMNPQRSTUVWXYZ2346789';
+  let r='PJ-';
+  for(let i=0;i<4;i++) r+=c[Math.floor(Math.random()*c.length)];
+  return r;
+}
+
+function openSync() {
+  if (!room) { room=genRoom(); localStorage.setItem('pj2_room',room); }
+  document.getElementById('roomCode').textContent = room;
+  document.getElementById('code-in').value = '';
+  setSyncSt('');
+  document.getElementById('ov-s').classList.add('on');
+}
+
+function copyCode() {
+  const txt = room;
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(txt).then(()=>toast('📋 Código copiado!'));
+  } else {
+    const el = document.getElementById('roomCode');
+    const r = document.createRange(); r.selectNode(el);
+    window.getSelection().removeAllRanges(); window.getSelection().addRange(r);
+    document.execCommand('copy'); window.getSelection().removeAllRanges();
+    toast('📋 Código copiado!');
+  }
+}
+
+function joinRoom() {
+  const v = document.getElementById('code-in').value.trim().toUpperCase();
+  if (v.length < 6) { setSyncSt('⚠️ Código inválido'); return; }
+  room = v; localStorage.setItem('pj2_room', room);
+  document.getElementById('roomCode').textContent = room;
+  setSyncSt('Sala: ' + room + ' — sincronizando…');
+  startAuto(); syncNow();
+}
+
+// ═══════════════════════════════════════════════════════════
+// NAVEGAÇÃO
+// ═══════════════════════════════════════════════════════════
+function goPage(name, btn) {
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));
+  document.getElementById('pg-'+name).classList.add('on');
+  btn.classList.add('on');
+  curPage = name;
+  renderPage(name);
+}
+
+function navMes(d) {
+  mesIdx += d;
+  if (mesIdx>11){mesIdx=0;mesAno++;}
+  if (mesIdx<0){mesIdx=11;mesAno--;}
+  document.getElementById('mlbl').textContent = MESES[mesIdx]+'/'+mesAno;
+  renderAll();
+}
+
+// ═══════════════════════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════════════════════
+const fmt = v =>
+  'R$ ' + Number(v||0).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+
+function getMesPfx(mi=mesIdx, ma=mesAno) {
+  return ma + '-' + String(mi+1).padStart(2,'0');
+}
+
+function doMes(arr, mi=mesIdx, ma=mesAno) {
+  const pfx = getMesPfx(mi, ma);
+  return (arr||[]).filter(i=>i.data&&i.data.startsWith(pfx));
+}
+
+function getFatura(dataStr) {
+  const d = new Date(dataStr+'T12:00:00');
+  const off = d.getDate() > 3 ? 2 : 1;
+  const m = d.getMonth() + off;
+  return MESES[m%12] + '/' + (d.getFullYear()+Math.floor(m/12));
+}
+
+function tagQuem(q) {
+  if(q==='Pamella') return '<span class="tag tp">Pamella</span>';
+  if(q==='Jeeser')  return '<span class="tag tj">Jeeser</span>';
+  return '<span class="tag tc">Casal</span>';
+}
+
+function corQuem(q) {
+  if(q==='Pamella') return 'var(--pam)';
+  if(q==='Jeeser')  return 'var(--jee)';
+  return 'var(--grn)';
+}
+
+function toast(msg, dur=2400) {
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('on');
+  setTimeout(()=>t.classList.remove('on'), dur);
+}
+
+function closeOv(id, e) {
+  if(e && e.target !== document.getElementById(id)) return;
+  document.getElementById(id).classList.remove('on');
+}
+
+// ═══════════════════════════════════════════════════════════
+// RENDER HOME
+// ═══════════════════════════════════════════════════════════
+function renderHome() {
+  const gm = doMes(DATA.gastos);
+  const rm = doMes(DATA.receitas);
+  const fm = doMes(DATA.fixas);
+
+  const totRec = rm.reduce((a,r)=>a+r.val,0);
+  const totFix = fm.reduce((a,f)=>a+f.val,0);
+  const totBB  = gm.filter(g=>g.pag==='avista'||g.pag==='parc').reduce((a,g)=>a+g.val,0);
+  const totGas = totBB + totFix;
+  const saldo  = totRec - totGas;
+
+  const gPam = gm.filter(g=>g.quem==='Pamella');
+  const gJee = gm.filter(g=>g.quem==='Jeeser');
+
+  document.getElementById('k-rec').textContent   = fmt(totRec);
+  document.getElementById('k-bb').textContent    = fmt(totBB);
+  document.getElementById('k-pam').textContent   = fmt(gPam.reduce((a,g)=>a+g.val,0));
+  document.getElementById('k-jee').textContent   = fmt(gJee.reduce((a,g)=>a+g.val,0));
+  document.getElementById('k-pam-s').textContent = gPam.length + ' gasto' + (gPam.length!==1?'s':'');
+  document.getElementById('k-jee-s').textContent = gJee.length + ' gasto' + (gJee.length!==1?'s':'');
+
+  const sv = document.getElementById('saldo-v');
+  sv.textContent = (saldo<0?'−':'')+fmt(Math.abs(saldo));
+  sv.style.color = saldo>=0?'var(--grn)':'var(--red)';
+
+  const pct = totBB>0 ? Math.round((totBB/META_BB)*100) : 0;
+  document.getElementById('meta-pct').textContent = pct+'%';
+  const bar = document.getElementById('meta-bar');
+  bar.style.width = Math.min(pct,100)+'%';
+  bar.className = 'pbf '+(pct>100?'over':pct>80?'warn':'ok');
+  const diff = totBB - META_BB;
+  document.getElementById('meta-msg').textContent =
+    pct===0 ? 'Sem gastos BB este mês.' :
+    diff>0 ? `⚠️ ${fmt(diff)} acima da meta` :
+    `✅ ${fmt(Math.abs(diff))} abaixo da meta`;
+
+  // Categorias
+  const catMap = {};
+  gm.forEach(g=>catMap[g.cat]=(catMap[g.cat]||0)+g.val);
+  const cats = Object.entries(catMap).sort((a,b)=>b[1]-a[1]);
+  document.getElementById('cat-bars').innerHTML = cats.length===0
+    ? '<div class="empty"><div class="ei">🏷️</div><div class="et">Nenhum gasto lançado ainda.</div></div>'
+    : cats.map(([cat,tot])=>{
+        const meta=CAT_META[cat]||500;
+        const p=Math.min(Math.round((tot/meta)*100),100);
+        return `<div class="pb-wrap">
+          <div class="pb-hdr"><span class="pb-lbl">${CAT_ICO[cat]||'📦'} ${cat}</span><span class="pb-pct">${fmt(tot)}</span></div>
+          <div class="pb"><div class="pbf ${p>100?'over':p>80?'warn':'ok'}" style="width:${p}%"></div></div>
+        </div>`;
+      }).join('');
+
+  // Fixas no home
+  document.getElementById('fixas-home').innerHTML = fm.length===0
+    ? '<div class="empty"><div class="ei">🏠</div><div class="et">Nenhuma despesa fixa lançada.</div></div>'
+    : fm.slice(0,4).map(f=>liFixa(f)).join('');
+
+  // Recentes
+  const rec = [...DATA.gastos,...DATA.receitas].sort((a,b)=>b.id-a.id).slice(0,5);
+  document.getElementById('recent').innerHTML = rec.length===0
+    ? '<div class="empty"><div class="ei">📝</div><div class="et">Toque em + para lançar.</div></div>'
+    : rec.map(i=>i.tipo==='gasto'?liGasto(i):liReceita(i)).join('');
+}
+
+// ═══════════════════════════════════════════════════════════
+// RENDER GASTOS
+// ═══════════════════════════════════════════════════════════
+let gastoFilt = 'todos';
+function fG(f, btn) {
+  gastoFilt=f;
+  document.querySelectorAll('.npill').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  renderGastos();
+}
+
+function renderGastos() {
+  let lista = doMes(DATA.gastos);
+  if(gastoFilt==='pam')   lista=lista.filter(g=>g.quem==='Pamella');
+  if(gastoFilt==='jee')   lista=lista.filter(g=>g.quem==='Jeeser');
+  if(gastoFilt==='casal') lista=lista.filter(g=>g.quem==='Casal');
+  if(gastoFilt==='parc')  lista=lista.filter(g=>g.pag==='parc');
+
+  const el = document.getElementById('lista-g');
+  if(lista.length===0){
+    el.innerHTML='<div class="empty"><div class="ei">💳</div><div class="et">Nenhum gasto neste mês.</div></div>'; return;
+  }
+  // Agrupa por data
+  const grp={};
+  lista.forEach(g=>{
+    const d=new Date(g.data+'T12:00:00');
+    const k=d.toLocaleDateString('pt-BR',{weekday:'short',day:'2-digit',month:'short'});
+    if(!grp[k])grp[k]=[];grp[k].push(g);
+  });
+  el.innerHTML=Object.entries(grp).map(([date,items])=>
+    `<div class="sec">${date}</div>${items.map(liGasto).join('')}`
+  ).join('');
+}
+
+function liGasto(g) {
+  const ico = CAT_ICO[g.cat]||'📦';
+  const bg  = CAT_BG[g.cat]||'rgba(58,90,122,.2)';
+  const cor = corQuem(g.quem);
+  const parc= g.pag==='parc'?` · ${g.parc}× de ${fmt(g.val/g.parc)}`:'';
+  const pagLbl = g.pag==='avista'?'BB À Vista':g.pag==='parc'?`BB ${g.parc}×`:g.pag==='deb'?'Déb/PIX':'Dinheiro';
+  return `<div class="li">
+    <div class="li-bar" style="background:${cor}"></div>
+    <div class="li-ico" style="background:${bg}">${ico}</div>
+    <div class="li-body">
+      <div class="li-title">${g.desc}</div>
+      <div class="li-sub">${tagQuem(g.quem)} <span style="color:var(--txt3)">${g.cat}${parc}</span></div>
+    </div>
+    <div class="li-right">
+      <div class="li-val" style="color:var(--red)">${fmt(g.val)}</div>
+      <div class="li-info">${g.fatura||pagLbl}</div>
+    </div>
+  </div>`;
+}
+
+// ═══════════════════════════════════════════════════════════
+// RENDER RECEITAS & FIXAS
+// ═══════════════════════════════════════════════════════════
+function renderReceitas() {
+  const rm = doMes(DATA.receitas);
+  const fm = doMes(DATA.fixas);
+  const totR=rm.reduce((a,r)=>a+r.val,0);
+  const totF=fm.reduce((a,f)=>a+f.val,0);
+  const disp=totR-totF;
+
+  document.getElementById('tr-v').textContent=fmt(totR);
+  document.getElementById('tf-v').textContent=fmt(totF);
+  document.getElementById('disp-v').textContent=fmt(Math.abs(disp));
+  document.getElementById('disp-v').style.color=disp>=0?'var(--grn)':'var(--red)';
+
+  document.getElementById('lista-r').innerHTML=rm.length===0
+    ?'<div class="empty"><div class="ei">💰</div><div class="et">Nenhuma receita lançada.</div></div>'
+    :rm.map(liReceita).join('');
+
+  document.getElementById('lista-f').innerHTML=fm.length===0
+    ?'<div class="empty"><div class="ei">🏠</div><div class="et">Nenhuma despesa fixa.</div></div>'
+    :fm.map(liFixa).join('');
+}
+
+function liReceita(r) {
+  return `<div class="li">
+    <div class="li-bar" style="background:var(--grn)"></div>
+    <div class="li-ico" style="background:var(--grn-g)">💰</div>
+    <div class="li-body">
+      <div class="li-title">${r.desc}</div>
+      <div class="li-sub">${tagQuem(r.quem)} <span style="color:var(--txt3)">${r.fonte||'Receita'}</span></div>
+    </div>
+    <div class="li-right">
+      <div class="li-val" style="color:var(--grn)">${fmt(r.val)}</div>
+      <div class="li-info">${r.data}</div>
+    </div>
+  </div>`;
+}
+
+function liFixa(f) {
+  return `<div class="li">
+    <div class="li-bar" style="background:var(--amb)"></div>
+    <div class="li-ico" style="background:var(--amb-g)">🏠</div>
+    <div class="li-body">
+      <div class="li-title">${f.desc}</div>
+      <div class="li-sub" style="color:var(--txt3)">${f.tfixa||'Fixa'}</div>
+    </div>
+    <div class="li-right">
+      <div class="li-val" style="color:var(--amb)">${fmt(f.val)}</div>
+      <div class="li-info">Mensal</div>
+    </div>
+  </div>`;
+}
+
+// ═══════════════════════════════════════════════════════════
+// RENDER ANUAL
+// ═══════════════════════════════════════════════════════════
+function renderAnual() {
+  // Mini-cards dos meses Mai-Dez
+  const ml = document.getElementById('mlist');
+  ml.innerHTML = MESES_CTRL.map(mi=>{
+    const gm=doMes(DATA.gastos,mi,2026);
+    const tot=gm.reduce((a,g)=>a+g.val,0);
+    const isCur=(mi===mesIdx&&mesAno===2026);
+    const hasData=tot>0;
+    return `<div class="mitem${isCur?' cur':''}${hasData?' has':''}" onclick="jumpMes(${mi})">
+      <div class="mitem-nome">${MESES[mi]}</div>
+      <div class="mitem-val">${hasData?fmt(tot).replace('R$ ',''):'—'}</div>
+    </div>`;
+  }).join('');
+
+  // Totais acumulados
+  let anRec=0,anBB=0,anFix=0;
+  MESES_CTRL.forEach(mi=>{
+    anRec += doMes(DATA.receitas,mi,2026).reduce((a,r)=>a+r.val,0);
+    anBB  += doMes(DATA.gastos,mi,2026).filter(g=>g.pag==='avista'||g.pag==='parc').reduce((a,g)=>a+g.val,0);
+    anFix += doMes(DATA.fixas,mi,2026).reduce((a,f)=>a+f.val,0);
+  });
+  const anBal=anRec-anBB-anFix;
+  document.getElementById('an-rec').textContent=fmt(anRec);
+  document.getElementById('an-bb').textContent=fmt(anBB);
+  document.getElementById('an-fix').textContent=fmt(anFix);
+  const bv=document.getElementById('an-bal');
+  bv.textContent=fmt(Math.abs(anBal));
+  bv.style.color=anBal>=0?'var(--grn)':'var(--red)';
+
+  // Parcelas futuras
+  const futMap={};
+  DATA.gastos.filter(g=>g.pag==='parc'&&g.fatura).forEach(g=>{
+    const k=g.fatura;
+    if(!futMap[k])futMap[k]={mes:k,tot:0,n:0};
+    futMap[k].tot+=g.val/g.parc;
+    futMap[k].n++;
+  });
+  const futs=Object.values(futMap).sort((a,b)=>{
+    const [ma,ya]=a.mes.split('/'); const [mb,yb]=b.mes.split('/');
+    return (parseInt(ya)*12+MESES.indexOf(ma))-(parseInt(yb)*12+MESES.indexOf(mb));
+  });
+  document.getElementById('fut-list').innerHTML=futs.length===0
+    ?'<div class="empty"><div class="ei">📦</div><div class="et">Nenhum parcelamento lançado.</div></div>'
+    :futs.map(f=>`<div class="li">
+      <div class="li-bar" style="background:var(--pam)"></div>
+      <div class="li-ico" style="background:var(--pam-g)">📅</div>
+      <div class="li-body"><div class="li-title">${f.mes}</div><div class="li-sub" style="color:var(--txt3)">${f.n} parcela${f.n!==1?'s':''}</div></div>
+      <div class="li-right"><div class="li-val" style="color:var(--pam)">${fmt(f.tot)}</div></div>
+    </div>`).join('');
+}
+
+function jumpMes(mi) {
+  mesIdx=mi; mesAno=2026;
+  document.getElementById('mlbl').textContent=MESES[mi]+'/2026';
+  // Volta para home
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));
+  document.getElementById('pg-home').classList.add('on');
+  document.querySelector('.nb').classList.add('on');
+  curPage='home';
+  renderHome();
+}
+
+// ═══════════════════════════════════════════════════════════
+// RENDER ALL
+// ═══════════════════════════════════════════════════════════
+function renderPage(name) {
+  if(name==='home')    renderHome();
+  if(name==='gastos')  renderGastos();
+  if(name==='receitas')renderReceitas();
+  if(name==='anual')   renderAnual();
+}
+function renderAll() { renderPage(curPage); }
+
+// ═══════════════════════════════════════════════════════════
+// MODAL LANÇAMENTO
+// ═══════════════════════════════════════════════════════════
+function openLanc() {
+  sel={};
+  mTab='gasto';
+  document.querySelectorAll('.mtab').forEach((t,i)=>t.classList.toggle('on',i===0));
+  document.querySelectorAll('.pill').forEach(p=>p.className='pill');
+  ['m-desc','m-obs'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('m-val').value='';
+  document.getElementById('m-parc').value=2;
+  document.getElementById('fg-parc').style.display='none';
+  document.getElementById('fat-prev').style.display='none';
+  document.getElementById('pchint').textContent='';
+  const t=new Date(),z=n=>String(n).padStart(2,'0');
+  document.getElementById('m-data').value=`${t.getFullYear()}-${z(t.getMonth()+1)}-${z(t.getDate())}`;
+  setTab('gasto');
+  document.getElementById('ov-l').classList.add('on');
+}
+
+function setTab(tab, btn) {
+  mTab=tab;
+  if(btn){ document.querySelectorAll('.mtab').forEach(t=>t.classList.remove('on')); btn.classList.add('on'); }
+  const isG=tab==='gasto', isR=tab==='receita', isF=tab==='fixa';
+  document.getElementById('fg-quem').style.display  = (isG||isR)?'block':'none';
+  document.getElementById('fg-cat').style.display   = isG?'block':'none';
+  document.getElementById('fg-fonte').style.display = isR?'block':'none';
+  document.getElementById('fg-tfixa').style.display = isF?'block':'none';
+  document.getElementById('fg-tipo').style.display  = isG?'block':'none';
+  document.getElementById('fg-parc').style.display  = (isG&&sel.tipo==='parc')?'block':'none';
+  document.getElementById('fat-prev').style.display = (isG&&(sel.tipo==='avista'||sel.tipo==='parc'))?'flex':'none';
+  document.getElementById('mtitle').textContent = isG?'+ Novo Gasto':isR?'+ Nova Receita':'+ Despesa Fixa';
+}
+
+function sp(field, val, btn, cls) {
+  document.querySelectorAll('#pg-'+field+' .pill').forEach(p=>p.className='pill');
+  btn.classList.add(cls);
+  sel[field]=val;
+  if(field==='tipo') return; // tratado por sTipo
+  updFatura();
+}
+
+function sTipo(tipo, btn) {
+  document.querySelectorAll('#pg-tipo .pill').forEach(p=>p.className='pill');
+  btn.classList.add('sx');
+  sel.tipo=tipo;
+  document.getElementById('fg-parc').style.display=tipo==='parc'?'block':'none';
+  document.getElementById('fat-prev').style.display=(tipo==='avista'||tipo==='parc')?'flex':'none';
+  updParchint();
+  updFatura();
+}
+
+function chgP(d) {
+  const inp=document.getElementById('m-parc');
+  inp.value=Math.max(2,Math.min(48,parseInt(inp.value||2)+d));
+  updParchint();
+}
+
+function updParchint() {
+  const v=parseFloat(document.getElementById('m-val').value||0);
+  const n=parseInt(document.getElementById('m-parc').value||2);
+  document.getElementById('pchint').textContent=v>0&&n>1?`${n}× de ${fmt(v/n)}`:'';
+}
+
+function updFatura() {
+  const ds=document.getElementById('m-data').value;
+  if(!ds||!sel.tipo||sel.tipo==='deb'||sel.tipo==='din'){
+    document.getElementById('fat-pv').textContent='—'; return;
+  }
+  document.getElementById('fat-pv').textContent=getFatura(ds)+' (vence dia 10)';
+}
+
+document.getElementById('m-val').addEventListener('input',()=>{updParchint();updFatura();});
+document.getElementById('m-data').addEventListener('input',updFatura);
+
+// ═══════════════════════════════════════════════════════════
+// SALVAR
+// ═══════════════════════════════════════════════════════════
+function salvar() {
+  const desc=document.getElementById('m-desc').value.trim();
+  const val=parseFloat(document.getElementById('m-val').value||0);
+  const data=document.getElementById('m-data').value;
+  const obs=document.getElementById('m-obs').value.trim();
+  const ts=Date.now();
+
+  if(!desc){toast('⚠️ Preencha a descrição');return;}
+  if(!val||val<=0){toast('⚠️ Preencha o valor');return;}
+  if(!data){toast('⚠️ Selecione a data');return;}
+
+  if(mTab==='gasto'){
+    if(!sel.quem){toast('⚠️ Selecione quem gastou');return;}
+    if(!sel.cat){toast('⚠️ Selecione a categoria');return;}
+    if(!sel.tipo){toast('⚠️ Selecione a forma de pagamento');return;}
+    const nParc=parseInt(document.getElementById('m-parc').value||1);
+    const fat=(sel.tipo==='avista'||sel.tipo==='parc')?getFatura(data):'—';
+    DATA.gastos.unshift({id:ts,tipo:'gasto',quem:sel.quem,desc,cat:sel.cat,val,pag:sel.tipo,parc:sel.tipo==='parc'?nParc:1,data,obs,fatura:fat,ts});
+  } else if(mTab==='receita'){
+    if(!sel.quem){toast('⚠️ Selecione o titular');return;}
+    if(!sel.fonte){toast('⚠️ Selecione a fonte');return;}
+    DATA.receitas.unshift({id:ts,tipo:'receita',quem:sel.quem,desc,fonte:sel.fonte,val,data,obs,ts});
+  } else {
+    if(!sel.tfixa){toast('⚠️ Selecione o tipo de despesa');return;}
+    DATA.fixas.unshift({id:ts,tipo:'fixa',desc,tfixa:sel.tfixa,val,data,obs,ts});
+  }
+
+  saveLocal();
+  document.getElementById('ov-l').classList.remove('on');
+  toast('✅ Salvo!');
+  renderAll();
+  if(room) setTimeout(syncNow, 600);
+}
+
+// ═══════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════
+loadLocal();
+document.getElementById('mlbl').textContent = MESES[mesIdx]+'/'+mesAno;
+if(room){ updSyncUI(false); startAuto(); syncNow(); }
+renderHome();
+
+// Prevenir zoom duplo-toque iOS
+let _lt=0;
+document.addEventListener('touchend',e=>{const n=Date.now();if(n-_lt<350)e.preventDefault();_lt=n},{passive:false});
+</script>
+</body>
+</html>
